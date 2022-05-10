@@ -42,7 +42,6 @@ void GameScene::Initialize() {
 	}
 }
 
-
 void GameScene::Update() {
 	debugCamera_->Update();
 }
