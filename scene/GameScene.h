@@ -51,6 +51,8 @@ class GameScene {
 	uint32_t textureHandle_ = 0;
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
+	//カメラ上方向の角度
+	float viewAngle = 0.0f;
 
 	Vector3 iti[30];
 	Vector3 ni[30];
@@ -62,7 +64,7 @@ class GameScene {
 	//3Dモデル
 	Model* model_ = nullptr;
 	//ワールドトランスフォーム
-	WorldTransform worldTransform_;
+	WorldTransform worldTransforms_[100];
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 };
