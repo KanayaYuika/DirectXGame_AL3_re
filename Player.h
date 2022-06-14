@@ -6,6 +6,8 @@
 #include "DebugText.h"
 #include "function.h"
 #include "PlayerBullet.h"
+#include<memory>
+#include<list>
 /// <summary>
 /// 自キャラ
 /// </summary>
@@ -15,10 +17,6 @@ public:
 	void Update();
 	void Draw(ViewProjection& viewProjection_);
 	void Attack();
-	~Player()
-	{
-		delete bullet_;
-	}
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -32,6 +30,6 @@ private:
 	//デバッグテキスト
 	DebugText* debugText_ = nullptr;
 	//弾
-	PlayerBullet* bullet_ = nullptr;
+	std::list<std::unique_ptr<PlayerBullet>> bullets_;
 
 };
