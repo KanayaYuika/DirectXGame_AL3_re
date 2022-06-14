@@ -1,4 +1,5 @@
 #include"Player.h"
+
 void Player::Initialize(Model* model, uint32_t textureHandle) {
 	//NULLƒ|ƒCƒ“ƒ^ƒ`ƒFƒbƒN
 	assert(model);
@@ -31,6 +32,25 @@ void Player::Update() {
 	else if (input_->PushKey(DIK_UP)) {
 		move.y += 0.1f;
 	}
+
+	//‰ñ“]‘¬‚³[ƒ‰ƒWƒAƒ“/frame]
+	const float kChestRotSpeed = 0.05f;
+
+	//‰Ÿ‚µ‚½•ûŒü‚ÅˆÚ“®ƒxƒNƒgƒ‹‚ð•ÏX
+	if (input_->PushKey(DIK_U)) {
+		worldTransform_.rotation_.y -= kChestRotSpeed;
+	}
+	else if (input_->PushKey(DIK_I)) {
+		worldTransform_.rotation_.y += kChestRotSpeed;
+	}
+
+	//ƒLƒƒƒ‰ƒNƒ^[UŒ‚ˆ—
+	Attack();
+	//’eXV
+	if (bullet_) {
+		bullet_->Update();
+	}
+
 	//ˆÚ“®ŒÀŠEÀ•W
 	const float kMoveLimitX = 32;
 	const float kMoveLimitY = 16;
@@ -55,4 +75,20 @@ void Player::Update() {
 
 void Player::Draw(ViewProjection& viewProjection_) {
 	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+
+	//’e•`‰æ
+	if (bullet_) {
+		bullet_->Draw(viewProjection_);
+	}
+}
+
+void Player::Attack() {
+	if (input_->PushKey(DIK_SPACE)) {
+		//’e‚ð¶¬‚µA‰Šú‰»
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initialize(model_, worldTransform_.translation_);
+
+		//’e‚ð“o˜^‚·‚é
+		bullet_ = newBullet;
+	}
 }

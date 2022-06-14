@@ -69,7 +69,7 @@ Matrix4 MatTransCreate(Vector3 trans) {
 	return matTrans;
 }
 
-//ワールド行列関数
+///ワールド行列関数
 Matrix4 MatWorldCreate(Vector3 scale, Vector3 rot, Vector3 trans) {
 	Matrix4 matWorld = MathUtility::Matrix4Identity();
 
