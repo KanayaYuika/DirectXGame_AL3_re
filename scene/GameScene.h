@@ -10,6 +10,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include"DebugCamera.h"
+#include"Player.h"
 
 /// <summary>
 /// ゲームシーン
@@ -42,20 +43,7 @@ class GameScene {
 	/// </summary>
 	void Draw();
 
-	//パーツID
-	enum PartId {
-		kRoot,  //大元
-		kSpine, //脊椎
-		kChest, //胸
-		kHead,  //頭
-		kArmL,  //左腕
-		kArmR,  //右腕
-		kHip,   //尻
-		kLegL,  //左足
-		kLegR,  //右足
-
-		kNumPartId
-	};
+	
 
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -69,10 +57,12 @@ class GameScene {
 	//カメラ上方向の角度
 	float viewAngle = 0.0f;
 
-	Vector3 iti[30];
-	Vector3 ni[30];
+	//デバッグカメラ有効
+	bool isDebugCameraActive_ = false;
 
 
+	//自キャラ
+	Player* player_ = nullptr;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
