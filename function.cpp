@@ -79,3 +79,13 @@ Matrix4 MatWorldCreate(Vector3 scale, Vector3 rot, Vector3 trans) {
 
 	return matWorld;
 }
+
+
+Vector3 VectorMatrix(Vector3 vector, WorldTransform worldTransform_) {
+	Vector3 vector_;
+	vector_.x = vector.x * worldTransform_.matWorld_.m[0][0] + vector.y * worldTransform_.matWorld_.m[0][1] + vector.z * worldTransform_.matWorld_.m[0][2];
+	vector_.y = vector.x * worldTransform_.matWorld_.m[1][0] + vector.y * worldTransform_.matWorld_.m[1][1] + vector.z * worldTransform_.matWorld_.m[1][2];
+	vector_.z = vector.x * worldTransform_.matWorld_.m[2][0] + vector.y * worldTransform_.matWorld_.m[2][1] + vector.z * worldTransform_.matWorld_.m[2][2];
+
+	return vector_;
+}

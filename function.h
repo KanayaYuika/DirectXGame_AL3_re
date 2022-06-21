@@ -12,3 +12,4 @@ Matrix4 MatRotYCreate(float rot);
 Matrix4 MatRotSCreate(Vector3 rot);
 Matrix4 MatTransCreate(Vector3 trans);
 Matrix4 MatWorldCreate(Vector3 scale, Vector3 rot, Vector3 trans);
+Vector3 VectorMatrix(Vector3 vector, WorldTransform worldTransform_);
