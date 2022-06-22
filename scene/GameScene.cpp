@@ -7,7 +7,8 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() { delete model_; delete debugCamera_; delete player_;
+GameScene::~GameScene() {
+	delete model_; delete debugCamera_; delete player_; delete enemy_;
 }
 
 
@@ -35,6 +36,12 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	//自キャラの更新
 	player_->Initialize(model_,textureHandle_);
+	//敵キャラの生成
+	enemy_ = new Enemy();
+	Vector3 EnemyPosition = {10,0,50};
+	//敵キャラの更新
+	enemy_->Initialize(model_,EnemyPosition);
+
 
 }
 
@@ -56,6 +63,8 @@ void GameScene::Update() {
 	}
 
 	player_->Update();
+	//ポインタがnullでない時だけ行う
+	enemy_->Update();
 }
 
 void GameScene::Draw() {
@@ -86,6 +95,8 @@ void GameScene::Draw() {
 	/// </summary>
 	/// 自キャラの描画
 	player_->Draw(viewProjection_);
+	/// 敵キャラの描画
+	enemy_->Draw(viewProjection_);
 
 	//範囲forで全てのワールドトランスフォームを順に処理する
 

@@ -11,6 +11,7 @@
 #include "WorldTransform.h"
 #include"DebugCamera.h"
 #include"Player.h"
+#include"Enemy.h"
 
 /// <summary>
 /// ゲームシーン
@@ -52,6 +53,7 @@ class GameScene {
 	DebugText* debugText_ = nullptr;
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	uint32_t textureHandle2_ = 0;
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
 	//カメラ上方向の角度
@@ -63,6 +65,10 @@ class GameScene {
 
 	//自キャラ
 	Player* player_ = nullptr;
+	//std::list<std::unique_ptr<Player>> player_;
+	//敵キャラ
+	Enemy* enemy_ = nullptr;
+	//std::list<std::unique_ptr<Enemy>> enemy_;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
