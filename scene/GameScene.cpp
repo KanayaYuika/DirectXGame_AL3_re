@@ -35,19 +35,21 @@ void GameScene::Initialize() {
 	//自キャラの生成
 	player_ = new Player();
 	//自キャラの更新
-	player_->Initialize(model_,textureHandle_);
+	player_->Initialize(model_, textureHandle_);
 	//敵キャラの生成
 	enemy_ = new Enemy();
-	Vector3 EnemyPosition = {10,0,50};
+	Vector3 EnemyPosition = { 10,0,50 };
 	//敵キャラの更新
-	enemy_->Initialize(model_,EnemyPosition);
+	enemy_->Initialize(model_, EnemyPosition);
+	//敵キャラに自キャラのアドレスを渡す
+	enemy_->SetPlayer(player_);
 
 
 }
 
 void GameScene::Update() {
 #ifdef _DEBUG
-	if (input_ = > TriggerKey(T)) {
+	if (input_->TriggerKey(DIK_0)) {
 		isDebugCameraActive_ = true;
 	}
 #endif

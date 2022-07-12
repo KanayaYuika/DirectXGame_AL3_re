@@ -17,6 +17,8 @@ public:
 	void Update();
 	void Draw(ViewProjection& viewProjection_);
 	void Attack();
+	//ワールド座標を取得
+	Vector3 GetWorldPosition() { return worldTransform_.translation_; }
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
