@@ -14,6 +14,9 @@ public:
 	//描画
 	void Draw(const ViewProjection& viewProjection);
 	bool IsDead() const { return isDead_; }
+	void OnCollision();//衝突を検出したら呼び出されるコールバック関数
+	//ワールド座標を取得
+	Vector3 GetWorldPosition();
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;

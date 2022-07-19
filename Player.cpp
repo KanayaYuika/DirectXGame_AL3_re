@@ -108,7 +108,12 @@ void Player::Attack() {
 		bullets_.push_back(std::move(newBullet));
 	}
 }
-//
+
+void Player::OnCollision() {
+
+}
+
+
 //Vector3 Player::GetWorldPosition() {
 //	//ƒ[ƒ‹ƒhÀ•W‚ğ“ü‚ê‚é•Ï”
 //	Vector3 worldPos;

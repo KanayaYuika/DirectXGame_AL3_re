@@ -3,6 +3,7 @@
 #include "WorldTransform.h"
 #include <cassert>
 #include "function.h"
+#include "DebugText.h"
 
 class PlayerBullet
 {
@@ -14,6 +15,10 @@ public:
 	//描画
 	void Draw(const ViewProjection& viewProjection);
 	bool IsDead() const { return isDead_; }
+
+	void OnCollision();//衝突を検出したら呼び出されるコールバック関数
+	//ワールド座標を取得
+	Vector3 GetWorldPosition();
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -25,8 +30,11 @@ private:
 	Vector3 velocity_;
 	//寿命<frm>
 	static const int32_t kLifeTime = 60 * 5;
+	//デバッグテキスト
+	DebugText* debugText_ = nullptr;
 	//デスタイマー
 	int32_t deathTimer_ = kLifeTime;
+public:
 	//デスフラグ
 	bool isDead_ = false;
 };

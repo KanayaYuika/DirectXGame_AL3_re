@@ -15,6 +15,7 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 	//引数で受け取った速度をメンバ変数に代入
 	velocity_ = velocity;
 }
+
 void PlayerBullet::Update() {
 	//座標を移動させる（1フレーム分の移動量を足しこむ）
 	worldTransform_.translation_ += velocity_;
@@ -28,7 +29,24 @@ void PlayerBullet::Update() {
 	worldTransform_.matWorld_ *= MatRotSCreate(worldTransform_.rotation_);
 	worldTransform_.matWorld_ *= MatTransCreate(worldTransform_.translation_);
 	worldTransform_.TransferMatrix();
+
 }
+
 void PlayerBullet::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+}
+
+void PlayerBullet::OnCollision() {
+	isDead_ = true;
+}
+
+Vector3 PlayerBullet::GetWorldPosition() {
+	//ワールド座標を入れる変数
+	Vector3 worldPos;
+	//ワールド行列の平行移動成分を取得（ワールド座標）
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+
+	return worldPos;
 }

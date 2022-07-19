@@ -67,6 +67,103 @@ void GameScene::Update() {
 	player_->Update();
 	//ポインタがnullでない時だけ行う
 	enemy_->Update();
+
+	CheckAllCollisions();
+
+}
+
+void GameScene::CheckAllCollisions() {
+	//判定対象AとBの座標
+	Vector3 posA, posB;
+
+	//自弾リストの取得
+	const std::list<std::unique_ptr<PlayerBullet>>& playerBullets = player_->GetBullets();
+
+	//敵弾リストの取得
+	const std::list<std::unique_ptr<EnemyBullet>>& enemyBullets = enemy_->GetBullets();
+
+#pragma regin //----------自キャラと敵弾の当たり判定
+
+	//自キャラの座標
+	posA= player_->GetWorldPosition();
+	//自キャラと敵弾全ての当たり判定
+	for (const std::unique_ptr<EnemyBullet>& bullet : enemyBullets) {
+		//敵弾の座標
+		posB = bullet->GetWorldPosition();
+		float hanA = 2.0f;
+		float hanB = 2.0f;
+		//座標AとBの距離を求める
+		float X = posA.x - posB.x;
+		float Y = posA.y - posB.y;
+		float Z = posA.z - posB.z;
+		float H = hanA + hanB;
+		//球と球の交差判定
+		if (X * X + Y * Y + Z * Z < H * H) {
+			//自キャラの衝突時コールバックを呼び出す
+			player_->OnCollision();
+			//敵弾の衝突時コールバックを呼び出す
+			bullet->OnCollision();
+		}
+
+	}
+#pragma endregion 
+
+#pragma regin //----------敵キャラと自弾の当たり判定
+
+	//敵キャラの座標
+	posA = enemy_->GetWorldPosition();
+	//敵キャラと自弾全ての当たり判定
+	for (const std::unique_ptr<PlayerBullet>& bullet : playerBullets) {
+		//自弾の座標
+		posB = bullet->GetWorldPosition();
+		float hanA = 2.0f;
+		float hanB = 2.0f;
+		//座標AとBの距離を求める
+		float X = posA.x - posB.x;
+		float Y = posA.y - posB.y;
+		float Z = posA.z - posB.z;
+		float H = hanA + hanB;
+		//球と球の交差判定
+		if (X * X + Y * Y + Z * Z < H * H) {
+			//敵キャラの衝突時コールバックを呼び出す
+			enemy_->OnCollision();
+			//自弾の衝突時コールバックを呼び出す
+			bullet->OnCollision();
+		}
+
+	}
+#pragma endregion
+
+
+#pragma regin //-----------自弾と敵弾の当たり判定
+
+	//敵弾と自弾全ての当たり判定
+	for (const std::unique_ptr<PlayerBullet>& playerBullet_ : playerBullets) {
+		for (const std::unique_ptr<EnemyBullet>& enemyBullet_ : enemyBullets) {
+			//自弾の座標
+			posA = playerBullet_->GetWorldPosition();
+			//敵弾の座標
+			posA = enemyBullet_->GetWorldPosition();
+			float hanA = 2.0f;
+			float hanB = 2.0f;
+			//座標AとBの距離を求める
+			float X = posA.x - posB.x;
+			float Y = posA.y - posB.y;
+			float Z = posA.z - posB.z;
+			float H = hanA + hanB;
+			//球と球の交差判定
+			if (X * X + Y * Y + Z * Z < H * H) {
+				//自弾の衝突時コールバックを呼び出す
+				playerBullet_->OnCollision();
+				//敵弾の衝突時コールバックを呼び出す
+				enemyBullet_ ->OnCollision();
+			}
+
+		}
+	}
+#pragma endregion
+
+
 }
 
 void GameScene::Draw() {

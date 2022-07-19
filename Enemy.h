@@ -27,6 +27,7 @@ public:
 	void Update();
 	void Draw(ViewProjection& viewProjection_);
 	void Fire();
+	void OnCollision();//衝突を検出したら呼び出されるコールバック関数
 	//発射間隔用変数
 	static const int kFireInterval = 60;
 	//接近フェーズ初期化
@@ -34,6 +35,8 @@ public:
 	void SetPlayer(Player* player) { player_ = player; }
 	//ワールド座標を取得
 	Vector3 GetWorldPosition();
+	//弾リストを取得
+	const std::list<std::unique_ptr<EnemyBullet>>& GetBullets() { return bullets_; }
 
 private:
 	//ワールド変換データ
@@ -59,7 +62,7 @@ private:
 	int32_t fireIntervalTimer = 0;
 	//自キャラ
 	Player* player_ = nullptr;
-	Vector3* vector3;
+	Vector3* vector3 = nullptr;
 
 };
 
